@@ -3,6 +3,7 @@ import "./App.css";
 import { useSelector } from "react-redux";
 import { getAllAlbums } from "./redux/itunes/itunesSlice";
 import Search from "./components/Search/Search";
+import AlbumCard from "./components/AlbumCard/AlbumCard";
 
 function App() {
 
@@ -13,6 +14,7 @@ console.log(data)
   return (
     <div className="app">
     <Search />
+    <AlbumCard />
     </div>
   );
 }
