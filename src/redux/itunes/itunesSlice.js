@@ -4,18 +4,18 @@ import axios from "axios";
 export const fetchAsyncITunes = createAsyncThunk(
   "iTunes/fetchAsyncITunes",
   async (term) => {
-    const getAlbums = await axios.get(
+    const response = await axios.get(
       `https://itunes.apple.com/search?term=${term}&entity=musicTrack&attribute=mixTerm&limit=20`
     );
-    return getAlbums.data;
+    return response.data;
   }
 );
 
 // export const fetchAsyncDetails = createAsyncThunk(
 //   "detail/fetchAsyncDetails",
 //   async (album) => {
-//     const getAlbum = await axios.get(`https://itunes.apple.com/search?term=${album}&entity=album&attribute=albumTerm`);
-//     return getAlbum.data;
+//     const response = await axios.get(`https://itunes.apple.com/search?term=${album}&entity=album&attribute=albumTerm`);
+//     return response.data;
 //   }
 // );
 
