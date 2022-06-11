@@ -18,7 +18,7 @@ const Search = () => {
 const handleSubmit = (e) => {
   e.preventDefault();
   dispatch(fetchAsyncITunes(searchedITunes));
-  // setSearchedITunes("")
+  setSearchedITunes("")
 }
 
   return (

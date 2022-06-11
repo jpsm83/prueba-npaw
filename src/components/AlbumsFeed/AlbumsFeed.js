@@ -8,6 +8,7 @@ import AlbumCard from "../AlbumCard/AlbumCard";
 import AddPagination from "../AddPagination/AddPagination";
 import { getAllAlbums } from "../../redux/itunes/itunesSlice";
 import { useSelector } from "react-redux";
+import { Co2Sharp } from "@mui/icons-material";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -19,9 +20,9 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const AlbumsFeed = () => {
 
-  const albums = useSelector(getAllAlbums);
+  const [albums, setAlbums] = useState([])
 
-  console.log(albums)
+  // const albums = useSelector(getAllAlbums);
   
   const displayAlbums = () => {
     return albums.resultCount > 0 &&
@@ -37,7 +38,7 @@ const AlbumsFeed = () => {
           <Item>{displayAlbums()}</Item>
         </Grid>
       </Grid>
-      <AddPagination />
+      <AddPagination setAlbums={(a) => setAlbums(a)} />
     </Box>
   );
 };
