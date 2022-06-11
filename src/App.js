@@ -1,20 +1,18 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./App.css";
-import { useSelector, useDispatch } from "react-redux";
-import { getAllAlbums, fetchAsyncITunes } from "./redux/itunes/itunesSlice";
+import { useSelector } from "react-redux";
+import { getAllAlbums } from "./redux/itunes/itunesSlice";
+import Search from "./components/Search/Search";
 
 function App() {
 
-const dispatch = useDispatch()
-
 const data = useSelector(getAllAlbums)
 
-  useEffect(() => {
-    dispatch(fetchAsyncITunes("maroon"))
-  }, []);
+console.log(data)
 
   return (
     <div className="app">
+    <Search />
     </div>
   );
 }

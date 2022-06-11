@@ -1,51 +1,32 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { SearchIcon } from "@heroicons/react/outline";
-import {
-  getAllMovies,
-  getAllSeries,
-  setSearchMovies,
-  setSearchSeries,
-} from "../../redux/movies/movieSlice";
-import "./Search.scss";
+import { fetchAsyncITunes } from "../../redux/itunes/itunesSlice";
 
 const Search = () => {
-  const [filteredMovies, setFilteredMovies] = useState([]);
-  const [filteredSeries, setFilteredSeries] = useState([]);
-  const moviesData = useSelector(getAllMovies);
-  const seriesData = useSelector(getAllSeries);
+  const [searchedITunes, setSearchedITunes] = useState("");
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(setSearchMovies(filteredMovies));
-    dispatch(setSearchSeries(filteredSeries));
-  }, [filteredMovies, filteredSeries]);
+  const handleChange = (e) => {
+    let inputSearch = e.target.value;
+    setSearchedITunes(inputSearch)
+  }
 
-  const handleSearch = (e) => {
-    let searchedMoviesAndSeries = e.target.value;
-    let filterMovies = moviesData.filter((item) => {
-      return item.Title.toLowerCase().includes(
-        searchedMoviesAndSeries.toLowerCase()
-      );
-    });
-    setFilteredMovies(filterMovies);
-
-    let filterSeries = seriesData.filter((item) => {
-      return item.Title.toLowerCase().includes(
-        searchedMoviesAndSeries.toLowerCase()
-      );
-    });
-    setFilteredSeries(filterSeries);
-  };
+const handleSubmit = (e) => {
+  e.preventDefault();
+  dispatch(fetchAsyncITunes(searchedITunes))
+}
 
   return (
     <div className="search-bar">
-      <input
-        onChange={handleSearch}
+    <form onSubmit={handleSubmit}>
+    <input
+        onChange={handleChange}
         type="text"
-        placeholder="Search Movies & Series"
+        placeholder="ITunes"
       />
       <SearchIcon className="search-icon" />
+    </form>
     </div>
   );
 };
