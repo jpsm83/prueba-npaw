@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { getAllAlbums } from "../../redux/itunes/itunesSlice";
 
 const AddPagination = ({ setAlbums }) => {
-  const pageSize = 6;
+  const pageSize = 20;
 
   const [pagination, setPagination] = useState({
     count: 0,
@@ -16,11 +16,25 @@ const AddPagination = ({ setAlbums }) => {
 
   const data = useSelector(getAllAlbums);
 
-  useEffect(() => {
-    setPagination({ ...pagination, count: data.length });
-    if (data.resultCount > 0) {
-      setAlbums({ ...data, results: data.results.slice(pagination.from, pagination.to) });
+  const uniqueAlbums = data.reduce((acc, toCompare) => {
+    const comparing = acc.find(
+      (album) => album.collectionName === toCompare.collectionName
+    );
+    const value = {
+      uniqueKey: Math.floor(Math.random() * toCompare.trackId) + Math.floor(Math.random() * toCompare.trackTimeMillis),
+      collectionName: toCompare.collectionName,
+      artworkUrl100: toCompare.artworkUrl100,
+      artistName: toCompare.artistName,
+    };
+    if (!comparing) {
+      acc.push({ ...value });
     }
+    return acc;
+  }, []);
+
+  useEffect(() => {
+    setPagination({ ...pagination, count: uniqueAlbums.length });
+    setAlbums(uniqueAlbums.slice(pagination.from, pagination.to));
   }, [pagination.from, pagination.to, data]);
 
   const handlePageChange = (e, page) => {

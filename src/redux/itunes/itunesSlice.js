@@ -3,11 +3,11 @@ import axios from "axios";
 
 export const fetchAsyncITunes = createAsyncThunk(
   "iTunes/fetchAsyncITunes",
-  async (term, from, to) => {
+  async (term) => {
     const response = await axios.get(
-      `https://itunes.apple.com/search?term=${term}&entity=musicTrack&attribute=mixTerm&limit=60`
+      `https://itunes.apple.com/search?term=${term}&entity=musicTrack&attribute=albumTerm&limit=60`
     );
-    return response.data;
+    return response.data.results;
   }
 );
 

@@ -2,4 +2,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: rgb(215, 221, 227);
+    border-radius: 5px;
 }

@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./AlbumsFeed.css";
 import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import AlbumCard from "../AlbumCard/AlbumCard";
 import AddPagination from "../AddPagination/AddPagination";
-import { getAllAlbums } from "../../redux/itunes/itunesSlice";
-import { useSelector } from "react-redux";
-import { Co2Sharp } from "@mui/icons-material";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -19,27 +15,30 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const AlbumsFeed = () => {
+  const [albums, setAlbums] = useState([]);
 
-  const [albums, setAlbums] = useState([])
-
-  // const albums = useSelector(getAllAlbums);
-  
   const displayAlbums = () => {
-    return albums.resultCount > 0 &&
-     albums.results.map((album, i) => {
-      return (<AlbumCard key={i} {...album} />);    
-    });
+    return (
+      albums.length > 0 &&
+      albums.map((album, i) => {
+        return (
+          <Grid item xs={4}>
+            <Item>
+              <AlbumCard key={i + album.uniqueKey} {...album} />
+            </Item>
+          </Grid>
+        );
+      })
+    );
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <div>
       <Grid container spacing={2} className="feedContainer">
-        <Grid item xs="auto">
-          <Item>{displayAlbums()}</Item>
-        </Grid>
+        {displayAlbums()}
       </Grid>
       <AddPagination setAlbums={(a) => setAlbums(a)} />
-    </Box>
+    </div>
   );
 };
 
