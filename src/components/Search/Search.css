@@ -4,4 +4,5 @@
     align-items: center;
     background-color: rgb(215, 221, 227);
     border-radius: 5px;
+    box-shadow: .4px .4px 4px .4px #e0e0e0;
 }
