@@ -2,15 +2,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
-    background: linear-gradient(to right, rgb(33, 51, 71), white, rgb(33, 51, 71))}
-
-.pagination {
-    margin: 20px;
+    margin-bottom: 35px;
+    background: linear-gradient(to right, rgb(33, 51, 71), white, rgb(33, 51, 71));
+    border-radius: 5px;
 }
 
-.show-selector {
-    padding-bottom: 10px;
-    right: 20%;
-    position: absolute;
+.pagination {
+    margin-top: 20px;
+}
+
+.select-radio {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.radio-label {
+    margin-right: 10px;
 }

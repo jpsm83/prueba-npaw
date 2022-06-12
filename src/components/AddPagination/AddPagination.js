@@ -4,10 +4,11 @@ import Stack from "@mui/material/Stack";
 import "./AddPagination.css";
 import { useSelector } from "react-redux";
 import { getAllAlbums } from "../../redux/itunes/itunesSlice";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
 
 const AddPagination = ({ setAlbums }) => {
   const [pageSize, setPageSize] = useState(4);
@@ -32,17 +33,17 @@ const AddPagination = ({ setAlbums }) => {
     if (!comparing) {
       acc.push({ ...value });
     }
-    return acc.slice(0,20);
+    return acc.slice(0, 20);
   }, []);
 
   useEffect(() => {
     setPagination({ ...pagination, count: uniqueAlbums.length, to: pageSize });
     setAlbums(uniqueAlbums.slice(pagination.from, pagination.to));
   }, [pagination.from, pagination.to, data, pageSize]);
-  
-const handleSelectChange = (e) => {
-  setPageSize(e.target.value)
-}
+
+  const handleSelectChange = (e) => {
+    setPageSize(e.target.value);
+  };
 
   const handlePageChange = (e, page) => {
     e.preventDefault();
@@ -53,32 +54,42 @@ const handleSelectChange = (e) => {
 
   return (
     <Stack spacing={2} className="pagination-container">
-    {uniqueAlbums.length > 0 &&
-      <Pagination className="pagination"
-        count={Math.ceil(pagination.count / pageSize)}
-        onChange={handlePageChange}
-        shape="rounded"
-        variant="outlined"
-        color="secondary"
-        defaultPage={1}
-              />
-    }
-    {uniqueAlbums.length > 0 &&
-    <div className="show-selector">
-    <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Show</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={pageSize}
-          label="Show"
-          onChange={handleSelectChange}
-        >
-          <MenuItem value={4}>4</MenuItem>
-          <MenuItem value={10}>10</MenuItem>
-          <MenuItem value={20}>20</MenuItem>
-        </Select>
-      </FormControl> </div>}  </Stack>
+      {uniqueAlbums.length > 0 && (
+        <Pagination
+          className="pagination"
+          count={Math.ceil(pagination.count / pageSize)}
+          onChange={handlePageChange}
+          shape="rounded"
+          variant="outlined"
+          color="secondary"
+          defaultPage={1}
+        />
+      )}
+      {uniqueAlbums.length > 0 && (
+        <div className="show-selector">
+          <FormControl>
+            <RadioGroup
+              aria-labelledby="demo-controlled-radio-buttons-group"
+              name="controlled-radio-buttons-group"
+              value={pageSize}
+              onChange={handleSelectChange}
+            >
+              <div className="select-radio">
+                <FormLabel
+                  id="demo-controlled-radio-buttons-group"
+                  className="radio-label"
+                >
+                  Show
+                </FormLabel>
+                <FormControlLabel value={4} control={<Radio />} label={4} />
+                <FormControlLabel value={10} control={<Radio />} label={10} />
+                <FormControlLabel value={20} control={<Radio />} label={20} />
+              </div>
+            </RadioGroup>
+          </FormControl>
+        </div>
+      )}
+    </Stack>
   );
 };
 

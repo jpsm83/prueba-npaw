@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(215, 221, 227);
+    background: linear-gradient(to right, rgb(33, 51, 71), white, rgb(33, 51, 71));
     border-radius: 5px;
-    box-shadow: .4px .4px 4px .4px #e0e0e0;
 }

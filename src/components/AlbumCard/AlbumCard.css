@@ -1,5 +1,6 @@
 .card-container {
     cursor: pointer;
+    width: 200px;
     height: 350px;
     display: flex;
     flex-direction: column;

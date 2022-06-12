@@ -1,4 +1,5 @@
 .feedContainer {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    justify-content: space-between;
 }
