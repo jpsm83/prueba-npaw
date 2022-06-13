@@ -9,7 +9,7 @@ const AlbumCard = ({ artworkUrl100, artistName, collectionName }) => {
   return (
     <Card className="card-container">
       <CardMedia component="img" image={artworkUrl100} alt={collectionName} />
-      <CardContent className="card-bottom">
+      <CardContent>
     <Typography gutterBottom variant="h5" align="center" component="div">
           {artistName}
         </Typography>

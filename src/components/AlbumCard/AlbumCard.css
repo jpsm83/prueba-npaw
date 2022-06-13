@@ -4,11 +4,11 @@
     height: 350px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
   }
+
   .card-container:hover {
     transition: all 0.3s;
     transform: scale(1.02);
-    box-shadow: .4px .4px 4px .4px #e0e0e0;
+    box-shadow: .6px .6px 6px .6px #e0e0e0;
   }
 

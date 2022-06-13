@@ -11,7 +11,7 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 
 const AddPagination = ({ setAlbums }) => {
-  const [pageSize, setPageSize] = useState(4);
+  const [pageSize, setPageSize] = useState(6);
 
   const [pagination, setPagination] = useState({
     count: 0,
@@ -21,6 +21,8 @@ const AddPagination = ({ setAlbums }) => {
 
   const data = useSelector(getAllAlbums);
 
+  // there are lots of repeat albums in the same search results
+  // here I am getting only one of many if repeated
   const uniqueAlbums = data.reduce((acc, toCompare) => {
     const comparing = acc.find(
       (album) => album.collectionName === toCompare.collectionName
@@ -37,7 +39,7 @@ const AddPagination = ({ setAlbums }) => {
   }, []);
 
   useEffect(() => {
-    setPagination({ ...pagination, count: uniqueAlbums.length, to: pageSize });
+    setPagination({ ...pagination, count: uniqueAlbums.length });
     setAlbums(uniqueAlbums.slice(pagination.from, pagination.to));
   }, [pagination.from, pagination.to, data, pageSize]);
 
@@ -66,28 +68,26 @@ const AddPagination = ({ setAlbums }) => {
         />
       )}
       {uniqueAlbums.length > 0 && (
-        <div className="show-selector">
-          <FormControl>
-            <RadioGroup
-              aria-labelledby="demo-controlled-radio-buttons-group"
-              name="controlled-radio-buttons-group"
-              value={pageSize}
-              onChange={handleSelectChange}
-            >
-              <div className="select-radio">
-                <FormLabel
-                  id="demo-controlled-radio-buttons-group"
-                  className="radio-label"
-                >
-                  Show
-                </FormLabel>
-                <FormControlLabel value={4} control={<Radio />} label={4} />
-                <FormControlLabel value={10} control={<Radio />} label={10} />
-                <FormControlLabel value={20} control={<Radio />} label={20} />
-              </div>
-            </RadioGroup>
-          </FormControl>
-        </div>
+        <FormControl>
+          <RadioGroup
+            aria-labelledby="demo-controlled-radio-buttons-group"
+            name="controlled-radio-buttons-group"
+            value={pageSize}
+            onChange={handleSelectChange}
+          >
+            <div className="select-radio">
+              <FormLabel
+                id="demo-controlled-radio-buttons-group"
+                className="radio-label"
+              >
+                Show
+              </FormLabel>
+              <FormControlLabel value={6} control={<Radio />} label={6} />
+              <FormControlLabel value={12} control={<Radio />} label={12} />
+              <FormControlLabel value={20} control={<Radio />} label={20} />
+            </div>
+          </RadioGroup>
+        </FormControl>
       )}
     </Stack>
   );

@@ -5,33 +5,20 @@ export const fetchAsyncITunes = createAsyncThunk(
   "iTunes/fetchAsyncITunes",
   async (term) => {
     const response = await axios.get(
-      `https://itunes.apple.com/search?term=${term}&entity=musicTrack&attribute=albumTerm&limit=60`
+      `https://itunes.apple.com/search?term=${term}&entity=musicTrack&attribute=albumTerm`
+      // could also add "limit=anyNumber" but choose not to so I got more albums to render
     );
     return response.data.results;
   }
 );
 
-// export const fetchAsyncDetails = createAsyncThunk(
-//   "detail/fetchAsyncDetails",
-//   async (album) => {
-//     const response = await axios.get(`https://itunes.apple.com/search?term=${album}&entity=album&attribute=albumTerm`);
-//     return response.data;
-//   }
-// );
-
 const initialState = {
   albums: [],
-  selectedAlbum: "",
 };
 
 const itunesSlice = createSlice({
   name: "iTunes",
   initialState,
-  reducers: {
-    clearDetails: (state) => {
-      state.selectedAlbum = "";
-    },
-  },
 
   extraReducers: {
     [fetchAsyncITunes.pending]: () => {
@@ -44,21 +31,8 @@ const itunesSlice = createSlice({
     [fetchAsyncITunes.rejected]: () => {
       console.log("Rejected!");
     },
-
-    // [fetchAsyncDetails.pending]: () => {
-    //   console.log("Pending");
-    // },
-    // [fetchAsyncDetails.fulfilled]: (state, { payload }) => {
-    //   console.log("Fetched Successfully!");
-    //   return { ...state, selectedAlbum: payload };
-    // },
-    // [fetchAsyncDetails.rejected]: () => {
-    //   console.log("Rejected!");
-    // },
   },
 });
 
-export const { clearDetails } = itunesSlice.actions;
 export const getAllAlbums = (state) => state.iTunes.albums;
-// export const getSelectedDetail = (state) => state.iTunes.selectedAlbum;
 export default itunesSlice.reducer;
